@@ -2,9 +2,10 @@ from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen as uReq
 import smtplib
 import time
+#import db_connection
 
 url = 'https://www.amazon.de/Apple-AirPods-Ladecase-Neuestes-Modell/dp/B07PZR3PVB'
-price_map = {'13 Dec 2016': '180'}
+price_map = {'2016-12-13': '180'}
 date = 0
 
 
@@ -26,7 +27,7 @@ filename = "airpods.csv"
 f = open(filename, "w")
 headers = "date, price\n"
 f.write(headers)
-f.write('13 Dec 2016, 180\n')
+f.write('2016-12-13, 180\n')
 
 
 def check_price():

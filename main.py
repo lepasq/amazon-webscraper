@@ -6,10 +6,10 @@ import time
 
 url = 'https://www.amazon.de/Apple-AirPods-Ladecase-Neuestes-Modell/dp/B07PZR3PVB'
 price_map = {'2016-12-13': '180'}
-date = 0
+date = time.strftime("%d %b %Y", time.gmtime())
 
 
-#opening connection
+# Opening connection
 uClient = uReq(url)
 page_html = uClient.read()
 uClient.close() 
@@ -18,11 +18,11 @@ page_soup = soup(page_html, 'html.parser')
 title = page_soup.find(id="productTitle").get_text()
 price = page_soup.find(id="priceblock_ourprice").get_text()
 #price = price.replace(",",".").replace("€","").strip()
-#FIX price = float(price.replace("€", ""))
+# FIX price = float(price.replace("€", ""))
 converted_price = float(price[0:3])
 
 
-#create spreadsheet
+# Create spreadsheet
 filename = "airpods.csv"
 f = open(filename, "w")
 headers = "date, price\n"
@@ -37,7 +37,7 @@ def check_price():
     print(converted_price)
     print(title.strip())
 
-    #sets date to the current date
+    # Sets date to the current date
     date = time.strftime("%d %b %Y", time.gmtime())
     price_map[date] = converted_price
     f_price = str(converted_price)
@@ -68,4 +68,5 @@ def send_mail():
 while(True):
     check_price()
     print(price_map)
+    #db_connection.insert_date()
     time.sleep(86400)
